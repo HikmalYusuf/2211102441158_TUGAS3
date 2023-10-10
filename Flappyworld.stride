@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="Flappyworld" extends="World" extends-java="World" enable="true" strideversion="1">
+    <javadoc xml:space="preserve">Write a description of class Flappyworld here.
+@author (your name) @version (a version number or a date)</javadoc>
+    <imports>
+        <import target="greenfoot.*" enable="true"/>
+    </imports>
+    <implements/>
+    <fields>
+        <variable access="protected" type="int" type-java="int" name="pipeCounter" value="0" value-java="0" enable="true"/>
+        <variable access="protected" type="int" type-java="int" name="score" value="0" value-java="0" enable="true"/>
+        <variable access="protected" type="int" type-java="int" name="flappyCounter" value="0" value-java="0" enable="true"/>
+        <variable access="protected" type="int" type-java="int" name="count" value="0" value-java="0" enable="true"/>
+        <variable access="protected" type="int" type-java="int" name="FIRST_PIPE" value="235" value-java="235" enable="true"/>
+        <variable access="protected" type="Score" type-java="Score" name="scoreObj" value="null" value-java="null" enable="true"/>
+        <variable access="protected" type="FlappyBird" type-java="FlappyBird" name="flap" enable="true"/>
+        <variable access="protected" type="boolean" type-java="boolean" name="isPaused" value="true" value-java="true" enable="true"/>
+    </fields>
+    <constructors>
+        <constructor access="public" enable="true">
+            <javadoc xml:space="preserve"/>
+            <params/>
+            <throws/>
+            <delegate target="super" params="600 , 400 , 1 , false" params-java="600 , 400 , 1 , false"/>
+            <body>
+                <comment xml:space="preserve">Create a new world with 600x400 cells with a cell size of 1x1 pixels. set paint order</comment>
+                <call expression="setPaintOrder ( Score . class , GameOver . class , FlappyBird . class , Pipe . class , Pipe2 . class )" expression-java="setPaintOrder ( Score . class , GameOver . class , FlappyBird . class , Pipe . class , Pipe2 . class )" enable="true"/>
+                <comment xml:space="preserve">Create FB Object</comment>
+                <assign dest="flap" dest-java="flap" src="new FlappyBird ( )" src-java="new FlappyBird ( )" enable="true"/>
+                <comment xml:space="preserve">creates the ground</comment>
+                <variable type="HalfGround" type-java="HalfGround" name="ground" value="new HalfGround ( )" value-java="new HalfGround ( )" enable="true"/>
+                <variable type="HalfGround" type-java="HalfGround" name="ground1" value="new HalfGround ( )" value-java="new HalfGround ( )" enable="true"/>
+                <comment xml:space="preserve">Create a score object</comment>
+                <assign dest="scoreObj" dest-java="scoreObj" src="new Score ( )" src-java="new Score ( )" enable="true"/>
+                <call expression="scoreObj . setScore ( 0 )" expression-java="scoreObj . setScore ( 0 )" enable="true"/>
+                <comment xml:space="preserve">add flap</comment>
+                <call expression="addObject ( flap , 100 , getHeight ( ) / 2 )" expression-java="addObject ( flap , 100 , getHeight ( ) / 2 )" enable="true"/>
+                <call expression="addObject ( ground , 1 , getHeight ( ) )" expression-java="addObject ( ground , 1 , getHeight ( ) )" enable="true"/>
+                <call expression="addObject ( ground1 , 300 , getHeight ( ) )" expression-java="addObject ( ground1 , 300 , getHeight ( ) )" enable="true"/>
+                <comment xml:space="preserve">int run =1;</comment>
+                <call expression="addObject ( scoreObj , 75 , 25 )" expression-java="addObject ( scoreObj , 75 , 25 )" enable="true"/>
+            </body>
+        </constructor>
+    </constructors>
+    <methods>
+        <method access="public" type="void" type-java="void" name="act" enable="true">
+            <javadoc xml:space="preserve"/>
+            <params/>
+            <throws/>
+            <body>
+                <comment xml:space="preserve">scoreCounter++;</comment>
+                <assign dest="pipeCounter" dest-java="pipeCounter" src="pipeCounter + 1" src-java="pipeCounter + 1" enable="true"/>
+                <assign dest="count" dest-java="count" src="count + 1" src-java="count + 1" enable="true"/>
+                <comment xml:space="preserve">System.out0.println(counter);</comment>
+                <if condition="count % 3 == 0" condition-java="count % 3 == 0" enable="true">
+                    <ifStatements>
+                        <comment xml:space="preserve">HalfGround ground = new HalfGround();</comment>
+                        <variable type="HalfGround" type-java="HalfGround" name="ground1" value="new HalfGround ( )" value-java="new HalfGround ( )" enable="true"/>
+                        <comment xml:space="preserve">addObject(ground, 1, getHeight());</comment>
+                        <call expression="addObject ( ground1 , 300 , getHeight ( ) )" expression-java="addObject ( ground1 , 300 , getHeight ( ) )" enable="true"/>
+                    </ifStatements>
+                </if>
+                <if condition="pipeCounter % 100 == 0" condition-java="pipeCounter % 100 == 0" enable="true">
+                    <ifStatements>
+                        <variable type="Pipe" type-java="Pipe" name="pipe" value="new Pipe ( )" value-java="new Pipe ( )" enable="true"/>
+                        <variable type="GreenfootImage" type-java="GreenfootImage" name="image" value="pipe . getImage ( )" value-java="pipe . getImage ( )" enable="true"/>
+                        <call expression="addObject ( pipe , getWidth ( ) , getHeight ( ) / 2 + image . getHeight ( ) - Greenfoot . getRandomNumber ( 105 ) )" expression-java="addObject ( pipe , getWidth ( ) , getHeight ( ) / 2 + image . getHeight ( ) - Greenfoot . getRandomNumber ( 105 ) )" enable="true"/>
+                        <variable type="Pipe2" type-java="Pipe2" name="pipe2" value="new Pipe2 ( )" value-java="new Pipe2 ( )" enable="true"/>
+                        <variable type="GreenfootImage" type-java="GreenfootImage" name="image2" value="pipe2 . getImage ( )" value-java="pipe2 . getImage ( )" enable="true"/>
+                        <call expression="addObject ( pipe2 , getWidth ( ) , getHeight ( ) / 2 - image2 . getHeight ( ) + Greenfoot . getRandomNumber ( 105 ) )" expression-java="addObject ( pipe2 , getWidth ( ) , getHeight ( ) / 2 - image2 . getHeight ( ) + Greenfoot . getRandomNumber ( 105 ) )" enable="true"/>
+                    </ifStatements>
+                </if>
+                <if condition="pipeCounter &gt;= FIRST_PIPE" condition-java="pipeCounter &gt;= FIRST_PIPE" enable="true">
+                    <ifStatements>
+                        <if condition="flappyCounter % 100 == 0" condition-java="flappyCounter % 100 == 0" enable="true">
+                            <ifStatements>
+                                <comment xml:space="preserve">if(flap.getYValue()&gt; -400){ flap. displayGameOver();}</comment>
+                                <assign dest="score" dest-java="score" src="score + 1" src-java="score + 1" enable="true"/>
+                                <call expression="scoreObj . setScore ( score )" expression-java="scoreObj . setScore ( score )" enable="true"/>
+                            </ifStatements>
+                        </if>
+                        <assign dest="flappyCounter" dest-java="flappyCounter" src="flappyCounter + 1" src-java="flappyCounter + 1" enable="true"/>
+                        <comment xml:space="preserve">System.out.println(score);</comment>
+                    </ifStatements>
+                </if>
+            </body>
+        </method>
+    </methods>
+</class>
